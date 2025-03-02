@@ -1,1 +1,3 @@
-1. Get the application URL by running these commands:
+Now your wiredoor gateway is connected to {{ .Values.wiredoor.server }}.
+
+Access to your wiredoor administration pane and expose services from your cluster!
