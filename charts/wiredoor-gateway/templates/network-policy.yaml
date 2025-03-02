@@ -18,6 +18,15 @@ spec:
           namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: kube-system
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-public
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8
+              - 192.168.0.0/16
+              - 172.16.0.0/20
         {{- with .Values.networkPolicy.egress }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
