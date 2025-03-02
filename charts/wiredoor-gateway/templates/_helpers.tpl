@@ -35,6 +35,8 @@ Common labels
 */}}
 {{- define "wiredoor-gateway.labels" -}}
 helm.sh/chart: {{ include "wiredoor-gateway.chart" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/part-of: wiredoor
 {{ include "wiredoor-gateway.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

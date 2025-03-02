@@ -13,10 +13,13 @@ spec:
       {{- include "wiredoor-gateway.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- if or .Values.wiredoor.server .Values.wiredoor.token }}
+        checksum/wiredoor-secrets: "{{ toJson .Values.wiredoor | sha256sum }}"
+        {{- end }}
+        {{- if .Values.podAnnotations }}
+        {{ toYaml .Values.podAnnotations | indent 8 }}
+        {{- end }}
       labels:
         {{- include "wiredoor-gateway.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
@@ -36,6 +39,11 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if or .Values.wiredoor.server .Values.wiredoor.token }}
+          envFrom:
+            - secretRef:
+                name: "wiredoor-secrets"
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

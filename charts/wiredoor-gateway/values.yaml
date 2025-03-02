@@ -35,7 +35,10 @@ podLabels: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext: 
+  capabilities:
+    add:
+    - NET_ADMIN
   # capabilities:
   #   drop:
   #   - ALL
