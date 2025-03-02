@@ -1,6 +1,9 @@
 {{- if .Values.networkPolicy.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
+metadata:
+  name: {{ .Release.Namespace }}-deny-traffic-from-wiredoor-gateway
+  namespace: {{ .Release.Namespace }}
 spec:
   podSelector:
     matchLabels:
