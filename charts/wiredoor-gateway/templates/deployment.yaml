@@ -44,7 +44,7 @@ spec:
             - secretRef:
                 name: "wiredoor-secrets"
           {{- end }}
-          {{- if .Values.service.port}}
+          {{- if and .Values.service .Values.service.port }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
