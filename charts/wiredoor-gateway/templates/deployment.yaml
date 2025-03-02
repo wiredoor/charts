@@ -44,10 +44,12 @@ spec:
             - secretRef:
                 name: "wiredoor-secrets"
           {{- end }}
+          {{- if .Values.service.port}}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
+          {{- end }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
