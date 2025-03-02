@@ -33,6 +33,17 @@ jobs:
             fi
           done
 
+      - name: Ensure gh-pages branch exists
+        run: |
+          if ! git ls-remote --exit-code --heads origin gh-pages; then
+            git checkout --orphan gh-pages
+            git reset --hard
+            touch .nojekyll
+            git add .nojekyll
+            git commit -m "Initialize gh-pages branch"
+            git push origin gh-pages
+          fi
+
       - name: Index Helm Charts
         run: |
           gh_pages_branch="gh-pages"
