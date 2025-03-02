@@ -38,19 +38,19 @@ resources:
     memory: 128Mi
 
 livenessProbe:
+  exec:
+    command:
+      - 'wg | grep "latest handshake: .* seconds ago" || exit 10'
   initialDelaySeconds: 30
   timeoutSeconds: 1
   periodSeconds: 5
-  command:
-    - 'wg | grep "latest handshake: .* seconds ago" || exit 10'
-  probeType: "exec"
 readinessProbe:
+  exec:
+    command:
+      - 'wg | grep "latest handshake: .* ago" || exit 10'
   initialDelaySeconds: 30
   timeoutSeconds: 1
   periodSeconds: 5
-  command:
-    - 'wg | grep "latest handshake: .* ago" || exit 10'
-  probeType: "exec"
 
 networkPolicy:
   enabled: false
