@@ -1,0 +1,61 @@
+name: Publish Helm Charts
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'charts/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.12.3
+
+      - name: Package Charts
+        run: |
+          mkdir -p packaged
+          for chart in charts/*; do
+            if [ -d "$chart" ]; then
+              echo "packaging chart: ${chart}"
+              helm package "$chart" -u -d packaged/
+            fi
+          done
+
+      - name: Index Helm Charts
+        run: |
+          gh_pages_branch="gh-pages"
+          repo_url="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+
+          git fetch origin $gh_pages_branch --depth=1 || true
+          mkdir -p gh-pages
+          if git ls-remote --exit-code --heads origin $gh_pages_branch; then
+            git checkout $gh_pages_branch -- gh-pages/index.yaml || true
+          fi
+
+          helm repo index packaged --url "$repo_url" --merge gh-pages/index.yaml || helm repo index packaged --url "$repo_url"
+
+          mv packaged/* gh-pages/
+
+      - name: Deploy to GitHub Pages
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@wireedoor.net"
+          
+          git checkout --orphan gh-pages
+          git reset --hard
+          cp -r gh-pages/* .
+          git add .
+          git commit -m "Update Helm chart repository"
+          git push -f origin gh-pages
