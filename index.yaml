@@ -3,7 +3,17 @@ entries:
   wiredoor-gateway:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-03-04T16:16:34.471626181Z"
+    created: "2025-03-04T16:44:00.403172823Z"
+    description: Wiredoor Gateway chart for Kubernetes
+    digest: 6864b166ea634666c068156079e723fd5cfde8537ce5ecd526af200b5dfaadd4
+    name: wiredoor-gateway
+    type: application
+    urls:
+    - https://charts.wiredoor.net/wiredoor-gateway-0.1.8.tgz
+    version: 0.1.8
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-03-04T16:44:00.402879697Z"
     description: Wiredoor Gateway chart for Kubernetes
     digest: adcd8ef0d1f21fd199c2938bce8536f4982f0b1fb034004ce452babfd58efb45
     name: wiredoor-gateway
@@ -13,7 +23,7 @@ entries:
     version: 0.1.7
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-03-04T16:16:34.471266993Z"
+    created: "2025-03-04T16:44:00.402571644Z"
     description: Wiredoor Gateway chart for Kubernetes
     digest: a468f5eb90e04d7eae2ae11ed262ca859b7a84f9ad9e7e9af09049cf655f03d6
     name: wiredoor-gateway
@@ -23,7 +33,7 @@ entries:
     version: 0.1.6
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-03-04T16:16:34.47092165Z"
+    created: "2025-03-04T16:44:00.402206465Z"
     description: Wiredoor Gateway chart for Kubernetes
     digest: a41914a357c074f5fc3a87f21f2c01417ac8a933e3b5bf95866aabc08101fd57
     name: wiredoor-gateway
@@ -31,4 +41,4 @@ entries:
     urls:
     - https://charts.wiredoor.net/wiredoor-gateway-0.1.5.tgz
     version: 0.1.5
-generated: "2025-03-04T16:16:34.470444621Z"
+generated: "2025-03-04T16:44:00.401701245Z"
