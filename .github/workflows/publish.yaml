@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - 'charts/**'
+    paths:
+      - 'charts/**'
   workflow_dispatch:
 
 permissions:
@@ -30,7 +30,6 @@ jobs:
 
       - name: Package Charts
         run: |
-          ls -alh charts
           mkdir -p packaged
           for chart in charts/*; do
             if [ -d "$chart" ]; then
@@ -38,7 +37,6 @@ jobs:
               helm package "$chart" -u -d packaged/
             fi
           done
-          ls -alh packaged
 
       - name: Checkout gh-pages branch
         run: |
@@ -49,11 +47,7 @@ jobs:
         run: |
           mv packaged/* ./ && rm -rf packaged
 
-          helm repo index --url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" .
-
-          if [ -d gh-pages ]; then
-            rm -rf gh-pages
-          fi
+          helm repo index --url "https://charts.wiredoor.net" .
 
       - name: Deploy to GitHub Pages
         run: |
