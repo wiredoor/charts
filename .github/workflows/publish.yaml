@@ -45,60 +45,15 @@ jobs:
           git fetch origin gh-pages
           git checkout gh-pages || git checkout --orphan gh-pages
 
-      - name: Download existing index.yaml
-        run: |
-          if [ -f index.yaml ]; then
-            mv index.yaml old_index.yaml
-          fi
-
       - name: Update helm repo
         run: |
-          ls -alh ./
           mv packaged/* ./ && rm -rf packaged
 
-          helm repo index --merge old_index.yaml --url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" .
+          helm repo index --url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" .
 
-          rm old_index.yaml
-
-      # - name: Index Helm Charts
-      #   run: |
-      #     gh_pages_branch="gh-pages"
-      #     repo_url="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
-
-      #     git fetch origin $gh_pages_branch --depth=1 || true
-      #     mkdir -p gh-pages
-      #     if git ls-remote --exit-code --heads origin $gh_pages_branch; then
-      #       git checkout $gh_pages_branch -- gh-pages/index.yaml || true
-      #     fi
-
-      #     helm repo index packaged --url "$repo_url" --merge gh-pages/index.yaml || helm repo index packaged --url "$repo_url"
-
-      #     mv packaged/* gh-pages/
-
-      - name: Add custom index.html
-        run: |
-          echo '<!DOCTYPE html>
-          <html lang="en">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Wiredoor Helm Charts</title>
-          </head>
-          <body>
-              <h1>Wiredoor Charts for Kubernetes</h1>
-              <p>You can find available helm charts provided by <a href="https://www.wiredoor.net">Wiredoor</a>, ready to lauch on Kubernetes using <a href="https://github.com/helm/helm">Helm</a>.
-
-              <h2>Usage</h2>
-
-              <code>
-                $ helm repo add wiredoor https://charts.wiredoor.net
-                $ helm search repo wiredoor
-                $ helm install my-wiredoor-release wiredoor/wiredoor-gateway --set wiredoor.server=https://my-wiredoor.clients.wiredoor.net --set wiredoor.token=secret_access_token 
-              </code>
-
-              <p>For more information, please refer to the <a href="https://github.com/wiredoor/charts">Wiredoor charts project on github</a></p>
-          </body>
-          </html>' > index.html
+          if [ -d gh-pages ]; then
+            rm -rf gh-pages
+          fi
 
       - name: Deploy to GitHub Pages
         run: |
