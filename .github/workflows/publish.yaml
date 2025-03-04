@@ -28,17 +28,6 @@ jobs:
           git config --global user.email "github-actions@wiredoor.net"
           git config --global user.name "GitHub Actions"
 
-      - name: Checkout gh-pages branch
-        run: |
-          git fetch origin gh-pages
-          git checkout gh-pages || git checkout --orphan gh-pages
-
-      - name: Download existing index.yaml
-        run: |
-          if [ -f index.yaml ]; then
-            mv index.yaml old_index.yaml
-          fi
-
       - name: Package Charts
         run: |
           ls -alh charts
@@ -50,6 +39,17 @@ jobs:
             fi
           done
           ls -alh packaged
+
+      - name: Checkout gh-pages branch
+        run: |
+          git fetch origin gh-pages
+          git checkout gh-pages || git checkout --orphan gh-pages
+
+      - name: Download existing index.yaml
+        run: |
+          if [ -f index.yaml ]; then
+            mv index.yaml old_index.yaml
+          fi
 
       - name: Update helm repo
         run: |
