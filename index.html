@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wiredoor Charts</title>
+    <title>Wiredoor Helm Charts</title>
 </head>
 <body>
-    <h1>Wiredoor Charts</h1>
-    <p>You can find available helm charts in <a href="index.yaml">index.yaml</a></p>
+    <h1>Wiredoor Charts for Kubernetes</h1>
+    <p>You can find available helm charts provided by <a href="https://www.wiredoor.net">Wiredoor</a>, ready to lauch on Kubernetes using <a href="https://github.com/helm/helm">Helm</a>.
+
+    <h2>Usage</h2>
+
+    <code>
+      $ helm repo add wiredoor https://charts.wiredoor.net
+      $ helm search repo wiredoor
+      $ helm install my-wiredoor-release wiredoor/wiredoor-gateway --set wiredoor.server=https://my-wiredoor.clients.wiredoor.net --set wiredoor.token=secret_access_token 
+    </code>
+
+    <p>For more information, please refer to the <a href="https://github.com/wiredoor/charts">Wiredoor charts project on github</a></p>
 </body>
 </html>
