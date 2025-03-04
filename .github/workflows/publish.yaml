@@ -23,6 +23,22 @@ jobs:
         with:
           version: v3.12.3
 
+      - name: Configure Git user
+        run: |
+          git config --global user.email "github-actions@wiredoor.net"
+          git config --global user.name "GitHub Actions"
+
+      - name: Checkout gh-pages branch
+        run: |
+          git fetch origin gh-pages
+          git checkout gh-pages || git checkout --orphan gh-pages
+
+      - name: Download existing index.yaml
+        run: |
+          if [ -f index.yaml ]; then
+            mv index.yaml old_index.yaml
+          fi
+
       - name: Package Charts
         run: |
           mkdir -p packaged
@@ -33,20 +49,26 @@ jobs:
             fi
           done
 
-      - name: Index Helm Charts
+      - name: Update helm repo
         run: |
-          gh_pages_branch="gh-pages"
-          repo_url="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          mv packaged/* . && rm -rf packaged
 
-          git fetch origin $gh_pages_branch --depth=1 || true
-          mkdir -p gh-pages
-          if git ls-remote --exit-code --heads origin $gh_pages_branch; then
-            git checkout $gh_pages_branch -- gh-pages/index.yaml || true
-          fi
+          helm repo index --merge old_index.yaml --url "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" .
 
-          helm repo index packaged --url "$repo_url" --merge gh-pages/index.yaml || helm repo index packaged --url "$repo_url"
+      # - name: Index Helm Charts
+      #   run: |
+      #     gh_pages_branch="gh-pages"
+      #     repo_url="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
 
-          mv packaged/* gh-pages/
+      #     git fetch origin $gh_pages_branch --depth=1 || true
+      #     mkdir -p gh-pages
+      #     if git ls-remote --exit-code --heads origin $gh_pages_branch; then
+      #       git checkout $gh_pages_branch -- gh-pages/index.yaml || true
+      #     fi
+
+      #     helm repo index packaged --url "$repo_url" --merge gh-pages/index.yaml || helm repo index packaged --url "$repo_url"
+
+      #     mv packaged/* gh-pages/
 
       - name: Add custom index.html
         run: |
@@ -62,16 +84,9 @@ jobs:
               <p>You can find available helm charts in <a href="index.yaml">index.yaml</a></p>
           </body>
           </html>' > index.html
-          git add index.html
 
       - name: Deploy to GitHub Pages
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@wireedoor.net"
-          
-          git checkout --orphan gh-pages
-          git reset --hard
-          cp -r gh-pages/* .
           git add .
-          git commit -m "Update Helm chart repository"
-          git push -f origin gh-pages
+          git commit -m "chore: Update Helm chart repository"
+          git push origin gh-pages
