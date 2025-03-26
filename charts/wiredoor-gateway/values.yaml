@@ -17,6 +17,7 @@ fullnameOverride: ""
 wiredoor:
   server: 
   token: 
+  ip: 
 
 podAnnotations: {}
 podLabels: {}

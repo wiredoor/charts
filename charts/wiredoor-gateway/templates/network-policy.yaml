@@ -21,12 +21,17 @@ spec:
       - namespaceSelector:
           matchLabels:
             kubernetes.io/metadata.name: kube-public
+      {{- if .Values.wiredoor.ip }}
+      - ipBlock:
+          cidr: {{ .Values.wiredoor.ip }}/32
+      {{- else}}
       - ipBlock:
           cidr: 0.0.0.0/0
           except:
             - 10.0.0.0/8
             - 192.168.0.0/16
             - 172.16.0.0/20
+      {{- end }}
       {{- with .Values.networkPolicy.egress }}
       {{- toYaml . | nindent 8 }}
       {{- end }}
