@@ -3,9 +3,9 @@ entries:
   wiredoor-gateway:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-04-10T03:25:02.877084819Z"
+    created: "2025-04-10T03:26:33.693220749Z"
     description: Wiredoor Gateway chart for Kubernetes
-    digest: 97c6d8d228601004d9029289a7d211153cc23d2cfcbff04c2965c061b7bc106d
+    digest: 26b80893993ba07135a4403c5b2072d1eb4c9059bf661ca711bcf8ab7b371c0c
     name: wiredoor-gateway
     type: application
     urls:
@@ -13,7 +13,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-04-10T03:25:02.876752536Z"
+    created: "2025-04-10T03:26:33.692555285Z"
     description: Wiredoor Gateway chart for Kubernetes
     digest: 6864b166ea634666c068156079e723fd5cfde8537ce5ecd526af200b5dfaadd4
     name: wiredoor-gateway
@@ -23,7 +23,7 @@ entries:
     version: 0.1.8
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-04-10T03:25:02.87642886Z"
+    created: "2025-04-10T03:26:33.692243413Z"
     description: Wiredoor Gateway chart for Kubernetes
     digest: adcd8ef0d1f21fd199c2938bce8536f4982f0b1fb034004ce452babfd58efb45
     name: wiredoor-gateway
@@ -33,7 +33,7 @@ entries:
     version: 0.1.7
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-04-10T03:25:02.876102127Z"
+    created: "2025-04-10T03:26:33.691900191Z"
     description: Wiredoor Gateway chart for Kubernetes
     digest: a468f5eb90e04d7eae2ae11ed262ca859b7a84f9ad9e7e9af09049cf655f03d6
     name: wiredoor-gateway
@@ -43,7 +43,7 @@ entries:
     version: 0.1.6
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-04-10T03:25:02.875731363Z"
+    created: "2025-04-10T03:26:33.691576166Z"
     description: Wiredoor Gateway chart for Kubernetes
     digest: a41914a357c074f5fc3a87f21f2c01417ac8a933e3b5bf95866aabc08101fd57
     name: wiredoor-gateway
@@ -51,4 +51,4 @@ entries:
     urls:
     - https://charts.wiredoor.net/wiredoor-gateway-0.1.5.tgz
     version: 0.1.5
-generated: "2025-04-10T03:25:02.875240764Z"
+generated: "2025-04-10T03:26:33.691066684Z"
