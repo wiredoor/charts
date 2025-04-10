@@ -24,7 +24,7 @@ spec:
       {{- if .Values.wiredoor.ip }}
       - ipBlock:
           cidr: {{ .Values.wiredoor.ip }}/32
-      {{- else}}
+      {{- else }}
       - ipBlock:
           cidr: 0.0.0.0/0
           except:
