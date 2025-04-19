@@ -43,19 +43,19 @@ livenessProbe:
     command:
       - sh
       - -c
-      - '/usr/bin/wiredoor --health'
-  initialDelaySeconds: 30
+      - '/usr/bin/wiredoor status --health'
+  initialDelaySeconds: 15
   timeoutSeconds: 1
-  periodSeconds: 5
+  periodSeconds: 10
 readinessProbe:
   exec:
     command:
       - sh
       - -c
-      - '/usr/bin/wiredoor --health'
-  initialDelaySeconds: 30
+      - '/usr/bin/wiredoor status --health'
+  initialDelaySeconds: 15
   timeoutSeconds: 1
-  periodSeconds: 5
+  periodSeconds: 10
 
 networkPolicy:
   enabled: false
