@@ -33,6 +33,6 @@ spec:
             - 172.16.0.0/20
       {{- end }}
       {{- with .Values.networkPolicy.egress }}
-      {{- toYaml . | nindent 8 }}
+      {{- toYaml . | nindent 6 }}
       {{- end }}
 {{- end }}
