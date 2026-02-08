@@ -12,7 +12,9 @@ spec:
   template:
     metadata:
       annotations:
-        {{- if or .Values.wiredoor.server .Values.wiredoor.token }}
+        {{- if .Values.wiredoor.existingSecret }}
+        checksum/wiredoor-secrets: "{{ .Values.wiredoor.existingSecret | sha256sum }}"
+        {{- else if or .Values.wiredoor.server .Values.wiredoor.token }}
         checksum/wiredoor-secrets: "{{ toJson .Values.wiredoor | sha256sum }}"
         {{- end }}
         {{- if .Values.podAnnotations }}
@@ -36,10 +38,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- if or .Values.wiredoor.server .Values.wiredoor.token }}
+          {{- if or .Values.wiredoor.existingSecret (or .Values.wiredoor.server .Values.wiredoor.token) }}
           envFrom:
             - secretRef:
-                name: "wiredoor-secrets"
+                name: {{ .Values.wiredoor.existingSecret | default "wiredoor-secrets" | quote }}
           {{- end }}
           {{- if and .Values.service .Values.service.port }}
           ports:
