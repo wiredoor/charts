@@ -15,8 +15,10 @@ nameOverride: ""
 fullnameOverride: ""
 
 wiredoor:
-  server: 
-  token: 
+  # existingSecret: name of an existing Secret to use for WIREDOOR_URL and TOKEN. When set, server/token are ignored.
+  existingSecret: ""
+  server:
+  token:
   ip: 
 
 podAnnotations: {}
